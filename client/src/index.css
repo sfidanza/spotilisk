@@ -1,0 +1,17 @@
+body {
+    background: #000000;
+    color: #ffffff;
+    font-family: sans-serif;
+    margin: 0;
+}
+
+h1 {
+    font-weight: bold;
+    margin: 0;
+    padding: 0.8em 0 0.8em 3.2em;
+}
+
+.header {
+    background-color: #ffffff;
+    color: #000000;
+}
