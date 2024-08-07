@@ -1,0 +1,51 @@
+# Build all and push to container repository
+name: build-and-push
+on: [push]
+
+env:
+  FRONTEND_IMAGE: ghcr.io/${{ github.repository_owner }}/spotilisk-frontend
+  BACKEND_IMAGE: ghcr.io/${{ github.repository_owner }}/spotilisk-backend
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+
+      # - run: docker compose build
+
+      - name: Set version
+        id: version
+        run: |
+          echo "BRANCH=${{ github.ref }}"
+          # Strip git ref prefix from version
+          VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
+          # Strip "v" prefix from tag name
+          [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
+          # Use Docker `latest` tag convention
+          [ "$VERSION" == "master" ] && VERSION=latest
+          echo VERSION=$VERSION
+          echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to registry
+        run: docker login ghcr.io -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 🎉 Build and push frontend image
+        uses: docker/build-push-action@v6
+        with:
+          context: ./client/
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: ${{ env.FRONTEND_IMAGE }}:${{ steps.version.outputs.VERSION }}
+
+      # - name: 🎉 Build and push backend image
+      #   uses: docker/build-push-action@v6
+      #   with:
+      #     context: ./server/
+      #     platforms: linux/amd64,linux/arm64
+      #     push: true
+      #     tags: ${{ env.BACKEND_IMAGE }}:${{ steps.version.outputs.VERSION }}
