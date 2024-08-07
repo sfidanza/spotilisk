@@ -2,6 +2,9 @@
 name: build-and-push
 on: [push]
 
+permissions:
+  packages: write
+
 env:
   FRONTEND_IMAGE: ghcr.io/${{ github.repository_owner }}/spotilisk-frontend
   BACKEND_IMAGE: ghcr.io/${{ github.repository_owner }}/spotilisk-backend
