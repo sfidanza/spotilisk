@@ -1,5 +1,5 @@
 body {
-    background: #000000;
+    background: #021000;
     color: #ffffff;
     font-family: sans-serif;
     margin: 0;
@@ -12,6 +12,15 @@ h1 {
 }
 
 .header {
-    background-color: #ffffff;
-    color: #000000;
+    background-color: #000000;
+    border-bottom:  inset;
+    border-image: Linear-gradient(to right,#077d07, #83ec83, #077d07) 1;
+    box-shadow: 0 60px 200px 30px #077d07;
 }
+
+/* another way to do the shadow */
+
+/*.container {
+     background: Linear-gradient(#077d07, #021000);
+     height: 100vh;
+} */
