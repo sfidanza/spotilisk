@@ -17,10 +17,3 @@ h1 {
     border-image: Linear-gradient(to right,#077d07, #83ec83, #077d07) 1;
     box-shadow: 0 60px 200px 30px #077d07;
 }
-
-/* another way to do the shadow */
-
-/*.container {
-     background: Linear-gradient(#077d07, #021000);
-     height: 100vh;
-} */
