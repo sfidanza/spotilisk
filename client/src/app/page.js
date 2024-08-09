@@ -10,8 +10,9 @@ export const page = {
 			templates: 'app.json',
 		},
 		area: {
-			main: 'global-container',
+			global: 'global-container',
 			pwl: 'app-pwl',
+			content: 'content',
 			user: 'user-area'
 		}
 	},
@@ -28,12 +29,15 @@ page.initialize = function () {
 	]).then(() => {
 		console.log(page.data);
 		// display
+		page.templates.global.parse();
+		page.templates.global.load(page.config.area.global);
+
 		page.templates.user.parse(page.data);
 		page.templates.user.load(page.config.area.user);
 
 		if (page.data.loggedIn) {
 			page.templates.main.parse(page.data);
-			page.templates.main.load(page.config.area.main);
+			page.templates.main.load(page.config.area.content);
 		}
 
 		// page.select(frw.history.getCurrentState() || page.config.defaultPage);

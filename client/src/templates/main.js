@@ -13,7 +13,6 @@ main.onParse = function (data) {
 	}
 
 	for (const playlist of data.playlists.items) {
-		console.log(playlist);
 		this.set('playlist', playlist);
 		this.set('playlist.tracks.total', playlist.tracks.total);
 		this.parseBlock('playlist');
