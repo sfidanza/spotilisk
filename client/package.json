@@ -1,0 +1,32 @@
+{
+  "name": "spotilisk",
+  "version": "0.1.0",
+  "author": "Stéphane Fidanza <stephane.fidanza@gmail.com>",
+  "description": "Monitor liked songs in Spotify and sort them in playlists automatically.",
+  "homepage": "https://github.com/sfidanza/spotilisk",
+  "bugs": {
+    "url": "https://github.com/sfidanza/spotilisk/issues"
+  },
+  "devDependencies": {
+    "grunt": "1.6.1",
+    "grunt-cli": "1.5.0",
+    "grunt-contrib-clean": "2.0.1",
+    "grunt-contrib-concat": "2.1.0",
+    "grunt-contrib-copy": "1.0.0",
+    "grunt-contrib-csslint": "2.0.0",
+    "grunt-contrib-watch": "1.1.0",
+    "grunt-eslint": "25.0.0"
+  },
+  "scripts": {
+    "build": "grunt",
+    "debug": "grunt watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sfidanza/spotilisk.git",
+    "directory": "client/"
+  },
+  "license": "MIT"
+}

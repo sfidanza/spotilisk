@@ -17,3 +17,21 @@ h1 {
     border-image: Linear-gradient(to right,#077d07, #83ec83, #077d07) 1;
     box-shadow: 0 60px 200px 30px #077d07;
 }
+
+#user-area {
+    float: right;
+}
+
+/***[PWL]*******************/
+#app-pwl {
+	position: absolute;
+	display: none;
+	top: 0;
+	left: 0;
+	background: #FFFFFF url('img/loader.gif') 1.5em 50% no-repeat;
+	border: 1px outset #333333;
+	border-radius: 3em;
+	padding: 2em 4em;
+	width: 15em;
+	text-align: center;
+}

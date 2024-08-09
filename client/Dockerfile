@@ -1,6 +1,17 @@
+# Stage 1
+FROM node:20-alpine AS build
+
+WORKDIR /usr/src/app
+
+COPY package*.json ./
+RUN npm ci
+
+COPY . .
+RUN npm run build
+
+# Stage 2
 FROM bitnami/nginx:1.27.0
 
-#RUN rm /etc/nginx/conf.d/default.conf
 COPY ./sites-available/spotilisk.conf /opt/bitnami/nginx/conf/server_blocks/
 
-COPY ./src /var/www/spotilisk
+COPY --from=build /usr/src/app/target /var/www/spotilisk

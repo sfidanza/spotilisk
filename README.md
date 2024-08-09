@@ -1,6 +1,6 @@
 # Spotilisk
 
-Monitor liked songs and sort them in playlists automatically.
+Monitor liked songs in Spotify and sort them in playlists automatically.
 
 ## Run locally in development mode
 
