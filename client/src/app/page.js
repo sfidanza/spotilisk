@@ -75,11 +75,12 @@ page.getData = async function () {
 };
 
 page.login = function () {
-	return spotify.login();
+	spotify.login();
 };
 
 page.logout = function () {
-	alert('You can not escape...');
+	spotify.logout();
+	window.location.reload();
 };
 
 page.refreshUser = function (data, cb) {

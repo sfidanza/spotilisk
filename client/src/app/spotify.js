@@ -36,6 +36,10 @@ export async function login() {
 	auth.redirectToAuthCodeFlow();
 }
 
+export async function logout() {
+	auth.currentToken.clear();
+}
+
 async function getSpotifyData(endpoint) {
 	const response = await fetch(SPOTIFY_API_BASE + endpoint, {
 		method: 'GET',

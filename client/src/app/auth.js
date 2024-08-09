@@ -19,6 +19,13 @@ export const currentToken = {
 		const now = new Date();
 		const expiry = new Date(now.getTime() + (expires_in * 1000));
 		localStorage.setItem('expires', expiry);
+	},
+
+	clear: function () {
+		localStorage.removeItem('access_token');
+		localStorage.removeItem('refresh_token');
+		localStorage.removeItem('expires_in');
+		localStorage.removeItem('expires');
 	}
 };
 
@@ -38,7 +45,7 @@ export async function redirectToAuthCodeFlow() {
 		'code_challenge': challenge
 	}).toString();
 
-	document.location = authUrl.toString();
+	window.location = authUrl.toString();
 }
 
 function generateCodeVerifier(length) {
