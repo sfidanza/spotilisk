@@ -2,7 +2,14 @@ import { AUTH_CLIENT_ID, AUTH_REDIRECT_URL } from './config.js';
 
 const authorizationEndpoint = 'https://accounts.spotify.com/authorize';
 const tokenEndpoint = 'https://accounts.spotify.com/api/token';
-const scope = 'user-read-private user-read-email user-library-read';
+const scope = [
+	'user-read-private', // Display user info
+	// 'user-read-email', 
+	'user-library-read', // Display public playlists and liked songs
+	'playlist-read-private', // Display private playlists
+	'playlist-modify-public', // Create playlists - public
+	'playlist-modify-private' // Create playlists - private
+].join(' ');
 
 export const currentToken = {
 	get access_token() { return localStorage.getItem('access_token') || null; },
@@ -37,12 +44,12 @@ export async function redirectToAuthCodeFlow() {
 
 	const authUrl = new URL(authorizationEndpoint);
 	authUrl.search = new URLSearchParams({
-		'client_id': AUTH_CLIENT_ID,
-		'response_type': 'code',
-		'redirect_uri': AUTH_REDIRECT_URL,
-		'scope': scope,
-		'code_challenge_method': 'S256',
-		'code_challenge': challenge
+		client_id: AUTH_CLIENT_ID,
+		response_type: 'code',
+		redirect_uri: AUTH_REDIRECT_URL,
+		scope: scope,
+		code_challenge_method: 'S256',
+		code_challenge: challenge
 	}).toString();
 
 	window.location = authUrl.toString();

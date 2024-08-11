@@ -13,13 +13,17 @@ h1 {
 
 .header {
     background-color: #000000;
-    border-bottom:  inset;
-    border-image: Linear-gradient(to right,#077d07, #83ec83, #077d07) 1;
-    box-shadow: 0 60px 200px 30px #077d07;
+    border-bottom: inset;
+    border-image: Linear-gradient(to right, #077d07, #83ec83, #077d07) 1;
+    box-shadow: 0 0 200px 20px #077d07;
 }
 
 #user-area {
     float: right;
+}
+
+#content {
+    display: flex;
 }
 
 /***[PWL]*******************/
@@ -29,10 +33,59 @@ h1 {
     top: 0;
     left: 0;
     color: #000;
-    background: #FFFFFF url('img/loader.gif') 1.5em 50% no-repeat;
-    border: 1px outset #333333;
+    background: #FFF url('img/loader.gif') 1.5em 50% no-repeat;
+    border: 1px outset #333;
     border-radius: 3em;
     padding: 2em 4em;
     width: 15em;
     text-align: center;
+}
+
+/***[main]******************/
+.playlists {
+    max-width: 300px;
+    margin: 2em;
+    flex: 1;
+}
+
+.playlist {
+    margin: 0.5em 0;
+    padding: 0.5em;
+    background-color: #000;
+    cursor: pointer;
+    border-left: 5px solid #000;
+}
+
+.playlist.selected {
+    border-color: #090;
+}
+
+.tracks {
+    margin: 2.5em 2em 2.5em 0;
+    flex: 2;
+    padding: 0.5em 1em;
+    background: #000;
+}
+
+.track {
+    margin: 0 0 0.7em 0;
+}
+
+.track img {
+    float: left;
+    margin-right: 1em;
+    width: 40px;
+    border-radius: 4px;
+}
+
+.track h4 {
+    margin: 3px 0;
+    font-size: 12pt;
+    color: #EEE;
+}
+
+.track p {
+    margin: 3px 0;
+    font-size: 11pt;
+    color: #AAA;
 }

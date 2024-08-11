@@ -40,10 +40,43 @@ export async function logout() {
 	auth.currentToken.clear();
 }
 
-async function getSpotifyData(endpoint) {
+export async function getSpotifyData(endpoint) {
 	const response = await fetch(SPOTIFY_API_BASE + endpoint, {
 		method: 'GET',
 		headers: { Authorization: `Bearer ${auth.currentToken.access_token}` }
+	});
+	const result = await response.json();
+	if (result.error) {
+		console.error(result.error.message);
+	}
+	return result;
+}
+
+export async function createPlaylist(name) {
+	const endpoint = '/me/playlists';
+	const response = await fetch(SPOTIFY_API_BASE + endpoint, {
+		method: 'POST',
+		headers: { Authorization: `Bearer ${auth.currentToken.access_token}` },
+		body: JSON.stringify({
+			name: name,
+			public: false
+		})
+	});
+	const result = await response.json();
+	if (result.error) {
+		console.error(result.error.message);
+	}
+	return result;
+}
+
+export async function addTracksToPlaylist(playlistId, tracksUri) {
+	const endpoint = `/playlists/${playlistId}/tracks`;
+	const response = await fetch(SPOTIFY_API_BASE + endpoint, {
+		method: 'POST',
+		headers: { Authorization: `Bearer ${auth.currentToken.access_token}` },
+		body: JSON.stringify({
+			uris: tracksUri
+		})
 	});
 	const result = await response.json();
 	if (result.error) {

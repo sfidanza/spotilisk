@@ -40,7 +40,6 @@ page.initialize = function () {
 			page.templates.main.load(page.config.area.content);
 		}
 
-		// page.select(frw.history.getCurrentState() || page.config.defaultPage);
 		page.notify(null);
 	});
 };
@@ -83,97 +82,42 @@ page.logout = function () {
 	window.location.reload();
 };
 
-page.refreshUser = function (data, cb) {
-	page.data.user = data && data.user;
+page.select = async function(event) {
+	document.querySelector('.selected')?.classList.remove('selected');
+	event.target.classList.add('selected');
 
-	//	page.templates.main.parse(); // BREAKS!! Only bets depend on user - review solution!
-	//	page.templates.main.load(page.config.area.main);
-
-	page.templates.user.parse(data || {});
-	page.templates.user.load(page.config.area.user);
-
-	if (this.current === 'bet') {
-		page.redrawView();
-	}
-	if (cb) cb();
+	const playlistId = event.target.dataset.id;
+	// const playlist = page.data.playlists.items.find(pl => pl.id === playlistId);
+	const tracks = await spotify.getSpotifyData(`/playlists/${playlistId}/tracks`);
+	page.templates.tracks.parse(tracks.items);
+	page.templates.tracks.load('tracks');
 };
 
-page.getPageTitle = function (stateTitle) {
-	return page.config.i18n.pageTitle(stateTitle);
+page.createPlaylist = function () {
+	const name = 'truc';
+	spotify.createPlaylist(name);
 };
 
-page.getMenuItem = function (hash) {
-	return document.querySelector(`a[href='${hash}']`);
-};
-
-page.highlight = function (link) {
-	document.querySelectorAll('a.selected').forEach(item => {
-		item.className = '';
+page.refreshPlaylists = function () {
+	Promise.all([
+		spotify.getSpotifyData('/me/playlists'),
+		spotify.getSpotifyData('/me/tracks')
+	]).then(([playlists, tracks]) => {
+		page.data.playlists = playlists;
+		page.data.tracks = tracks;
+		page.templates.main.parse(page.data);
+		page.templates.main.load(page.config.area.content);
 	});
-	link.className = 'selected';
-	link.blur();
 };
 
-page.select = function (link, event) {
-	if (event) event.preventDefault();
-
-	let target;
-	if (typeof link === 'string') {
-		target = link;
-		link = page.getMenuItem('#' + target);
-	} else {
-		target = link.href.split('#')[1];
+page.syncIntoPlaylist = function () {
+	const selected = document.querySelector('.selected');
+	if (selected) {
+		const playlistId = selected.dataset.id;
+		const tracksUri = page.data.tracks.items.map(it => it.track.uri).slice(0, 3); // limit to 3 for testing
+		console.log(playlistId, tracksUri);
+		spotify.addTracksToPlaylist(playlistId, tracksUri);
 	}
-	if (target) {
-		if (link) {
-			page.highlight(link);
-			// frw.history.pushState(target, page.getPageTitle(link.title || link.innerHTML));
-		}
-		page.view(target);
-		this.current = target;
-	}
-};
-
-page.redrawView = function () {
-	page.view(this.current);
-};
-
-page.view = function (viewName) {
-	page.scoreEditor.unplug();
-	page.show(...viewName.split(','));
-};
-
-page.show = function (viewName, ...option) {
-	switch (viewName) {
-		case 'schedule': page.showSchedule(...option); break;
-		case 'history': page.showPage('history', ...option); break;
-		case 'notes': page.showPage('notes'); break;
-		case 'login': page.showPage('login', ...option); break;
-		case 'register': page.showPage('register', ...option); break;
-		case 'bet': page.showPage('bet', ...option); break;
-	}
-	document.getElementById(page.config.area.contents).className = 'page-' + viewName;
-};
-
-page.showSchedule = function (phase) {
-	const matches = (phase == 1) ? page.data.matches.filter(m => m.phase == 'G') :
-		((phase == 2) ? page.data.matches.filter(m => m.group == null) : page.data.matches);
-
-	const data = {
-		teams: page.data.teams,
-		matches: matches,
-		stadiums: page.data.stadiums
-	};
-
-	page.templates.schedule.parse(data);
-	page.templates.schedule.load(page.config.area.contents);
-	page.scoreEditor.plug();
-};
-
-page.showPage = function (tplId, options) {
-	const tpl = page.templates[tplId];
-	tpl.parse(options);
-	tpl.load(page.config.area.contents);
 };
 
 /**********************************************************/
