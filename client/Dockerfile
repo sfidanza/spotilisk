@@ -10,7 +10,7 @@ COPY . .
 RUN npm run build
 
 # Stage 2
-FROM bitnami/nginx:1.27.0
+FROM bitnami/nginx:1.27.1
 
 COPY ./sites-available/spotilisk.conf /opt/bitnami/nginx/conf/server_blocks/
 
