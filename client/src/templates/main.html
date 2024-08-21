@@ -1,14 +1,25 @@
-<div class="playlists">
-    <!-- BEGIN: tracks -->
-    <div class="playlist">Liked songs ({tracks.total})</div>
-    <!-- END: tracks -->
-    <!-- BEGIN: playlist -->
-    <div class="playlist" onclick="page.select(event)" data-id="{playlist.id}">{playlist.name} ({playlist.tracks.total})</div>
-    <!-- END: playlist -->
-    <button onclick="page.createPlaylist()">+ Create Playlist</button>
-    <button onclick="page.syncIntoPlaylist()">Sync</button>
-
-    <button onclick="page.refreshPlaylists()">⌛ Refresh</button>
+<!-- BEGIN: liked -->
+<h3>Liked songs ({tracks.total})</h3>
+<div class="expand" data-onclick="toggleLikedSongs">Preview / See all</div>
+<div class="liked preview">
+    <!-- BEGIN: track -->
+    <img src="{track.img}" title="{track.name} - {track.artist}"/>
+    <!-- END: track -->
 </div>
-<div class="tracks" id="tracks">
+<!-- END: liked -->
+
+<div class="sync">
+    <button onclick="page.syncIntoPlaylist()">Sync Liked Songs into the playlist selected below</button>
+</div>
+
+<h3>Playlists</h3>
+<div class="playlists">
+    <div class="list">
+        <!-- BEGIN: playlist -->
+        <div class="playlist" onclick="page.select(event)" data-id="{playlist.id}">{playlist.name} ({playlist.tracks.total})</div>
+        <!-- END: playlist -->
+        <button onclick="page.createPlaylist()">+ Create Playlist</button>
+        <button onclick="page.refreshPlaylists()">⌛ Refresh</button>
+    </div>
+    <div class="tracks" id="tracks"></div>
 </div>

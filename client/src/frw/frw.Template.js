@@ -185,7 +185,7 @@ Template.prototype.load = function (container, display, blk) {
 		display = display || container.style.display;
 		container.style.display = 'none';
 		container.innerHTML = this.retrieve(blk); // assume no scripts to execute
-		this.onLoad();
+		this.onLoad(container);
 		container.style.display = display;
 	}
 };
