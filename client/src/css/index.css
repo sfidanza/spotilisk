@@ -47,7 +47,8 @@ h3 {
 }
 
 .liked {
-    overflow-x: hidden; /* Comment this line to get a horizontal scrollbar */
+    /* Comment next line to get a horizontal scrollbar */
+    overflow-x: hidden;
     overflow-y: hidden;
     background-color: #000;
     padding: 0.4em;
@@ -84,13 +85,13 @@ h3 {
 
 .playlists {
     display: flex;
-    /* min-width: 0; */
 }
 
 .list {
     flex: 1;
-    max-width: 300px;
+    max-width: 200px;
     background-color: #000;
+    border-right: 5px solid #090;
 }
 
 .playlist {
@@ -100,6 +101,11 @@ h3 {
 }
 
 .playlist.selected {
+    border-color: #090;
+    background-color: #090;
+}
+
+.playlist:hover {
     border-color: #090;
 }
 

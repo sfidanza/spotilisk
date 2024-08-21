@@ -88,6 +88,7 @@ page.logout = function () {
 };
 
 page.select = async function (event) {
+	page.notify('Fetching playlist...', true);
 	document.querySelector('.selected')?.classList.remove('selected');
 	event.target.classList.add('selected');
 
@@ -98,6 +99,7 @@ page.select = async function (event) {
 	playlist.tracks.items = tracks.items;
 	page.templates.tracks.parse(tracks.items);
 	page.templates.tracks.load('tracks');
+	page.notify(null);
 };
 
 page.createPlaylist = function () {
@@ -106,6 +108,7 @@ page.createPlaylist = function () {
 };
 
 page.refreshPlaylists = async function () {
+	page.notify('Refreshing data...', true);
 	page.data.selected = null;
 	[ page.data.playlists, page.data.tracks ] = await Promise.all([
 		spotify.getSpotifyData('/me/playlists'),
@@ -114,15 +117,35 @@ page.refreshPlaylists = async function () {
 	]);
 	page.templates.main.parse(page.data);
 	page.templates.main.load(page.config.area.content);
+	page.notify(null);
+};
+
+/**
+ * Returns the list of tracks present in Liked Songs and not in the playlist with id `playlistId`
+ * @param {String} playlistId 
+ */
+page.getTrackDiff = function (playlistId) {
+	const playlist = page.data.playlists.items.find(pl => pl.id === playlistId);
+	const tracks = playlist.tracks.items;
+	if (!tracks) {
+		console.error('Playlist has not been selected, so its tracks have not been retrieved yet');
+	}
+	const trackDiff = page.data.tracks.items.filter((li) => tracks.every(pi => pi.track.id !== li.track.id));
+	return trackDiff;
+};
+
+page.previewTrackDiff = function () {
+	const playlistId = page.data.selected;
+	if (playlistId) {
+		const toBeAdded = page.getTrackDiff(playlistId);
+		console.log(toBeAdded.map(it => it.track.name));
+	}
 };
 
 page.syncIntoPlaylist = function () {
 	const playlistId = page.data.selected;
 	if (playlistId) {
-		const playlist = page.data.playlists.items.find(pl => pl.id === playlistId);
-		const tracks = playlist.tracks.items;
-		const toBeAdded = page.data.tracks.items.filter((li) => tracks.every(pi => pi.track.id !== li.track.id));
-		console.log(toBeAdded.map(it => it.track.name));
+		const toBeAdded = page.getTrackDiff(playlistId);
 		if (toBeAdded.length) {
 			spotify.addTracksToPlaylist(playlistId, toBeAdded.map(it => it.track.uri));
 		}
