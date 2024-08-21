@@ -22,9 +22,6 @@ export async function initialize() {
 		// If we have a token, we're logged in, so fetch user data
 		data.loggedIn = true;
 		await auth.checkTokenExpiry();
-		data.user = await getSpotifyData('/me');
-		data.playlists = await getSpotifyData('/me/playlists');
-		data.tracks = await getSpotifyData('/me/tracks');
 	} else {
 		// Otherwise we're not logged in
 		data.loggedIn = false;
@@ -40,10 +37,11 @@ export async function logout() {
 	auth.currentToken.clear();
 }
 
-export async function getSpotifyData(endpoint) {
-	const response = await fetch(SPOTIFY_API_BASE + endpoint, {
-		method: 'GET',
-		headers: { Authorization: `Bearer ${auth.currentToken.access_token}` }
+async function fetchWebApi(url, method, body) {
+	const response = await fetch(url, {
+		headers: { Authorization: `Bearer ${auth.currentToken.access_token}` },
+		method,
+		body: JSON.stringify(body)
 	});
 	const result = await response.json();
 	if (result.error) {
@@ -52,35 +50,42 @@ export async function getSpotifyData(endpoint) {
 	return result;
 }
 
+export async function getSpotifyData(endpoint) {
+	return await fetchWebApi(SPOTIFY_API_BASE + endpoint, 'GET');
+}
+
+export async function getFullSpotifyData(endpoint) {
+	let next = SPOTIFY_API_BASE + endpoint;
+	const results = { items: [] };
+	while (next) {
+		const result = await fetchWebApi(next, 'GET');
+		if (result.error) break;
+		results.items.push(...result.items);
+		results.total = result.total;
+		next = result.next;
+	}
+	return results;
+}
+
 export async function createPlaylist(name) {
 	const endpoint = '/me/playlists';
-	const response = await fetch(SPOTIFY_API_BASE + endpoint, {
-		method: 'POST',
-		headers: { Authorization: `Bearer ${auth.currentToken.access_token}` },
-		body: JSON.stringify({
-			name: name,
-			public: false
-		})
+	const result = await fetchWebApi(SPOTIFY_API_BASE + endpoint, 'POST', {
+		name: name,
+		public: false
 	});
-	const result = await response.json();
-	if (result.error) {
-		console.error(result.error.message);
-	}
 	return result;
 }
 
 export async function addTracksToPlaylist(playlistId, tracksUri) {
 	const endpoint = `/playlists/${playlistId}/tracks`;
-	const response = await fetch(SPOTIFY_API_BASE + endpoint, {
-		method: 'POST',
-		headers: { Authorization: `Bearer ${auth.currentToken.access_token}` },
-		body: JSON.stringify({
-			uris: tracksUri
-		})
-	});
-	const result = await response.json();
-	if (result.error) {
-		console.error(result.error.message);
+	// split `tracksUri` by groups of 100 items, as supported by spotify api
+	let start = 0;
+	while (start < tracksUri.length) {
+		const batchUri = tracksUri.slice(start, start + 100);
+		const result = await fetchWebApi(SPOTIFY_API_BASE + endpoint, 'POST', {
+			uris: batchUri
+		});
+		if (result.error) break;
+		start += 100;
 	}
-	return result;
 }

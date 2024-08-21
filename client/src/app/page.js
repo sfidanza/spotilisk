@@ -67,10 +67,15 @@ page.notify = function (message, init) {
 };
 
 page.getData = async function () {
-	return spotify.initialize()
-		.then(data => {
-			page.data = data;
-		});
+	page.data = await spotify.initialize();
+	if (page.data.loggedIn) {
+		[ page.data.user, page.data.playlists, page.data.tracks ] = await Promise.all([
+			spotify.getSpotifyData('/me'),
+			spotify.getSpotifyData('/me/playlists'),
+			// spotify.getSpotifyData('/me/tracks')
+			spotify.getFullSpotifyData('/me/tracks?limit=50')
+		]);
+	}
 };
 
 page.login = function () {
@@ -82,13 +87,15 @@ page.logout = function () {
 	window.location.reload();
 };
 
-page.select = async function(event) {
+page.select = async function (event) {
 	document.querySelector('.selected')?.classList.remove('selected');
 	event.target.classList.add('selected');
 
 	const playlistId = event.target.dataset.id;
-	// const playlist = page.data.playlists.items.find(pl => pl.id === playlistId);
-	const tracks = await spotify.getSpotifyData(`/playlists/${playlistId}/tracks`);
+	page.data.selected = playlistId;
+	const playlist = page.data.playlists.items.find(pl => pl.id === playlistId);
+	const tracks = await spotify.getFullSpotifyData(`/playlists/${playlistId}/tracks`);
+	playlist.tracks.items = tracks.items;
 	page.templates.tracks.parse(tracks.items);
 	page.templates.tracks.load('tracks');
 };
@@ -98,25 +105,27 @@ page.createPlaylist = function () {
 	spotify.createPlaylist(name);
 };
 
-page.refreshPlaylists = function () {
-	Promise.all([
+page.refreshPlaylists = async function () {
+	page.data.selected = null;
+	[ page.data.playlists, page.data.tracks ] = await Promise.all([
 		spotify.getSpotifyData('/me/playlists'),
-		spotify.getSpotifyData('/me/tracks')
-	]).then(([playlists, tracks]) => {
-		page.data.playlists = playlists;
-		page.data.tracks = tracks;
-		page.templates.main.parse(page.data);
-		page.templates.main.load(page.config.area.content);
-	});
+		// spotify.getSpotifyData('/me/tracks')
+		spotify.getFullSpotifyData('/me/tracks?limit=50')
+	]);
+	page.templates.main.parse(page.data);
+	page.templates.main.load(page.config.area.content);
 };
 
 page.syncIntoPlaylist = function () {
-	const selected = document.querySelector('.selected');
-	if (selected) {
-		const playlistId = selected.dataset.id;
-		const tracksUri = page.data.tracks.items.map(it => it.track.uri).slice(0, 3); // limit to 3 for testing
-		console.log(playlistId, tracksUri);
-		spotify.addTracksToPlaylist(playlistId, tracksUri);
+	const playlistId = page.data.selected;
+	if (playlistId) {
+		const playlist = page.data.playlists.items.find(pl => pl.id === playlistId);
+		const tracks = playlist.tracks.items;
+		const toBeAdded = page.data.tracks.items.filter((li) => tracks.every(pi => pi.track.id !== li.track.id));
+		console.log(toBeAdded.map(it => it.track.name));
+		if (toBeAdded.length) {
+			spotify.addTracksToPlaylist(playlistId, toBeAdded.map(it => it.track.uri));
+		}
 	}
 };
 
