@@ -131,14 +131,18 @@ page.getTrackDiff = function (playlistId) {
 		console.error('Playlist has not been selected, so its tracks have not been retrieved yet');
 	}
 	const trackDiff = page.data.tracks.items.filter((li) => tracks.every(pi => pi.track.id !== li.track.id));
-	return trackDiff;
+	return [trackDiff, tracks];
 };
 
 page.previewTrackDiff = function () {
 	const playlistId = page.data.selected;
 	if (playlistId) {
-		const toBeAdded = page.getTrackDiff(playlistId);
+		const [toBeAdded, originalTracks] = page.getTrackDiff(playlistId);
 		console.log(toBeAdded.map(it => it.track.name));
+
+		page.templates.tracks.parse(toBeAdded);
+		page.templates.tracks.parse(originalTracks);
+		page.templates.tracks.load('tracks');
 	}
 };
 

@@ -1,16 +1,16 @@
 <!-- BEGIN: liked -->
 <h3>Liked songs ({tracks.total})</h3>
 <div class="expand" data-onclick="toggleLikedSongs">Preview / See all</div>
-<div class="liked preview">
-    <!-- BEGIN: track -->
-    <img src="{track.img}" title="{track.name} - {track.artist}"/>
-    <!-- END: track -->
-</div>
-<!-- END: liked -->
+    <div class="liked preview">
+        <!-- BEGIN: track -->
+        <img src="{track.img}" title="{track.name} - {track.artist}" />
+        <!-- END: track -->
+    </div>
+    <!-- END: liked -->
 
 <div class="sync">
     <button onclick="page.syncIntoPlaylist()">Sync Liked Songs into the playlist selected below</button>
-    <button onclick="page.previewTrackDiff()">Preview in console</button>
+    <button onclick="page.previewTrackDiff()">Preview</button>
 </div>
 
 <h3>Playlists</h3>
