@@ -13,4 +13,5 @@ tracks.onParse = function (list) {
 		this.set('track.img', item.track.album.images[2].url);
 		this.parseBlock('track');
 	}
+	this.parseBlock('separator');
 };

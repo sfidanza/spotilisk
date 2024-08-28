@@ -75,7 +75,7 @@ h3 {
 }
 
 .expand:hover {
-    background-color: #070;
+    background-color: #090;
 }
 
 .sync {
@@ -114,8 +114,10 @@ h3 {
     background-color: #000;
 }
 
-.tracks button {
-    margin: 0.5em 0;
+.tracks hr {
+    margin: 0;
+    border: none;
+    border-bottom: 5px solid #090;
 }
 
 .track {

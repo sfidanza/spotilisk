@@ -4,6 +4,7 @@ export const main = new Template();
 
 main.onCreate = function (pageRef, frwRef, i18nRepository) {
 	this.i18n = i18nRepository;
+	this.autoBindEvents = ['onclick'];
 };
 
 main.onParse = function (data) {
@@ -36,9 +37,11 @@ main.onLoad = function (container) {
 	 * Candidate to be included directly in `frw.Template.load`
 	 *  `main.autoBindEvents = [ 'onclick' ];`
 	 **/
-	[...container.querySelectorAll('[data-onclick]')].every(el => {
-		el.onclick = this[el.dataset.onclick].bind(this);
-	});
+	if (this.autoBindEvents?.includes('onclick')) {
+		container.querySelectorAll('[data-onclick]').forEach(el => {
+			el.onclick = this[el.dataset.onclick].bind(this);
+		});
+	}
 };
 
 main.toggleLikedSongs = function () {

@@ -79,11 +79,11 @@ export async function getToken(code) {
 		method: 'POST',
 		headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
 		body: new URLSearchParams({
-			'client_id': AUTH_CLIENT_ID,
-			'grant_type': 'authorization_code',
-			'code': code,
-			'redirect_uri': AUTH_REDIRECT_URL,
-			'code_verifier': verifier
+			client_id: AUTH_CLIENT_ID,
+			grant_type: 'authorization_code',
+			code: code,
+			redirect_uri: AUTH_REDIRECT_URL,
+			code_verifier: verifier
 		})
 	});
 	const token = await response.json();
