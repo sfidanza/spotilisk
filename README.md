@@ -11,6 +11,7 @@ References:
 - <https://developer.spotify.com/documentation/web-api/tutorials/getting-started>
 - <https://developer.spotify.com/documentation/web-api/concepts/authorization>
 - <https://blog.postman.com/pkce-oauth-how-to/>
+- <https://developer.spotify.com/documentation/web-api/reference/add-tracks-to-playlist>
 
 ## Run locally in development mode
 
