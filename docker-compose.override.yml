@@ -14,7 +14,7 @@ services:
       - ./client:/usr/src/app
       - client_target:/usr/src/app/target
       - client_node_modules:/usr/src/app/node_modules
-    command: npm run debug
+    command: node --run debug
 
 volumes:
   client_node_modules:
