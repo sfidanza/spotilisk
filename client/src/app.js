@@ -5,7 +5,7 @@
  *  app -> templates -> page
  **********************************************************/
 
-import * as templates from './templates.js';
-import { page } from './page.js';
+import * as templates from './app/templates.js';
+import { page } from './app/page.js';
 
 page.templates = templates;

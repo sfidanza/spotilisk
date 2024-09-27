@@ -131,13 +131,13 @@ page.getTrackDiff = function (playlistId) {
 		console.error('Playlist has not been selected, so its tracks have not been retrieved yet');
 	}
 	const trackDiff = page.data.tracks.items.filter((li) => tracks.every(pi => pi.track.id !== li.track.id));
-	return [trackDiff, tracks];
+	return [ trackDiff, tracks ];
 };
 
 page.previewTrackDiff = function () {
 	const playlistId = page.data.selected;
 	if (playlistId) {
-		const [toBeAdded, originalTracks] = page.getTrackDiff(playlistId);
+		const [ toBeAdded, originalTracks ] = page.getTrackDiff(playlistId);
 		console.log(toBeAdded.map(it => it.track.name));
 
 		page.templates.tracks.parse(toBeAdded);

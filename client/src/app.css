@@ -1,6 +1,6 @@
 body {
     background: #021000;
-    color: #ffffff;
+    color: #fff;
     font-family: sans-serif;
     margin: 0;
 }
@@ -12,9 +12,9 @@ h1 {
 }
 
 .header {
-    background-color: #000000;
+    background-color: #000;
     border-bottom: inset;
-    border-image: Linear-gradient(to right, #077d07, #83ec83, #077d07) 1;
+    border-image: linear-gradient(to right, #077d07, #83ec83, #077d07) 1;
     box-shadow: 0 0 200px 20px #077d07;
 }
 
@@ -22,7 +22,7 @@ h1 {
     float: right;
 }
 
-/***[PWL]*******************/
+/* **[PWL]****************** */
 #app-pwl {
     position: absolute;
     display: none;
@@ -37,7 +37,7 @@ h1 {
     text-align: center;
 }
 
-/***[main]******************/
+/* **[main]***************** */
 h3 {
     margin-bottom: 0;
     background-color: #000;
@@ -47,9 +47,8 @@ h3 {
 }
 
 .liked {
-    /* Comment next line to get a horizontal scrollbar */
-    overflow-x: hidden;
-    overflow-y: hidden;
+    /* change to overflow-y to get a horizontal scrollbar */
+    overflow: hidden;
     background-color: #000;
     padding: 0.4em;
 }
