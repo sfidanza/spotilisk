@@ -67,7 +67,8 @@ page.notify = function (message, init) {
 };
 
 page.getData = async function () {
-	page.data = await spotify.initialize();
+	const config = await fetch('/config').then(res => res.json());
+	page.data = await spotify.initialize(config);
 	if (page.data.loggedIn) {
 		[ page.data.user, page.data.playlists, page.data.tracks ] = await Promise.all([
 			spotify.getSpotifyData('/me'),

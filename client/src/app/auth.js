@@ -1,4 +1,4 @@
-import { AUTH_CLIENT_ID, AUTH_REDIRECT_URL } from './config.js';
+let AUTH_CLIENT_ID, AUTH_REDIRECT_URL;
 
 const authorizationEndpoint = 'https://accounts.spotify.com/authorize';
 const tokenEndpoint = 'https://accounts.spotify.com/api/token';
@@ -10,6 +10,11 @@ const scope = [
 	'playlist-modify-public', // Create playlists - public
 	'playlist-modify-private' // Create playlists - private
 ].join(' ');
+
+export function initialize(config) {
+	AUTH_CLIENT_ID = config.AUTH_CLIENT_ID;
+	AUTH_REDIRECT_URL = config.AUTH_REDIRECT_URL;
+};
 
 export const currentToken = {
 	get access_token() { return localStorage.getItem('access_token') || null; },

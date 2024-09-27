@@ -1,6 +1,9 @@
 services:
   nginx:
     image: ghcr.io/sfidanza/spotilisk-frontend
+    environment:
+      - AUTH_CLIENT_ID
+      - AUTH_REDIRECT_URL
 
   # app:
   #   image: ghcr.io/sfidanza/spotilisk-backend

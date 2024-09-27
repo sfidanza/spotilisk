@@ -2,10 +2,18 @@ import * as auth from './auth.js';
 
 const SPOTIFY_API_BASE = 'https://api.spotify.com/v1';
 
-export async function initialize() {
+/**
+ * @param {object} config
+ * @param {String} config.AUTH_CLIENT_ID - Spotify client ID for OAuth identification
+ * @param {String} config.AUTH_REDIRECT_URL - url for Spotify to redirect to this application
+ */
+export async function initialize(config) {
 	// On page load, try to fetch auth code from current browser search URL
 	const params = new URLSearchParams(window.location.search);
 	const code = params.get('code');
+
+	// Set OAuth credentials in auth library
+	auth.initialize(config);
 
 	// If we find a code, we're in a callback, do a token exchange
 	if (code) {

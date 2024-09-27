@@ -10,8 +10,11 @@ COPY . .
 RUN node --run build
 
 # Stage 2
-FROM bitnami/nginx:1.27.1
+FROM nginx:1.27.1-alpine
 
-COPY ./sites-available/spotilisk.conf /opt/bitnami/nginx/conf/server_blocks/
+WORKDIR /var/www/spotilisk
+COPY --from=build /usr/src/app/target .
 
-COPY --from=build /usr/src/app/target /var/www/spotilisk
+RUN rm /etc/nginx/conf.d/default.conf
+COPY sites-available/*.conf.template /etc/nginx/templates/
+# /etc/nginx/templates/ is a docker entrypoint that will be resolved through `envsubst`
