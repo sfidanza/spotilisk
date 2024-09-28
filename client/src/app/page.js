@@ -150,7 +150,7 @@ page.previewTrackDiff = function () {
 page.syncIntoPlaylist = function () {
 	const playlistId = page.data.selected;
 	if (playlistId) {
-		const toBeAdded = page.getTrackDiff(playlistId);
+		const [ toBeAdded ] = page.getTrackDiff(playlistId);
 		if (toBeAdded.length) {
 			spotify.addTracksToPlaylist(playlistId, toBeAdded.map(it => it.track.uri));
 		}
