@@ -8,7 +8,7 @@
     "url": "https://github.com/sfidanza/spotilisk/issues"
   },
   "devDependencies": {
-    "chokidar": "4.0.1",
+    "chokidar": "4.0.3",
     "esbuild": "0.24.0",
     "esbuild-plugin-clean": "1.0.1",
     "esbuild-plugin-copy": "2.1.1",
