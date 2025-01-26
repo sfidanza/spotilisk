@@ -13,7 +13,7 @@
     "esbuild-plugin-clean": "1.0.1",
     "esbuild-plugin-copy": "2.1.1",
     "esbuild-plugin-eslint": "0.3.12",
-    "eslint": "9.18.0",
+    "eslint": "9.19.0",
     "fast-glob": "3.3.3",
     "stylelint": "16.13.2",
     "stylelint-config-standard": "37.0.0"
