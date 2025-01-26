@@ -7,6 +7,7 @@ export const ssa = {};
 /**
  * Load client sides templates
  * @param {object} repository  templates repository to register templates in
+ * @returns {Promise}
  */
 ssa.loadTemplates = async function (url, repository, ...params) {
 	return fetch(url)

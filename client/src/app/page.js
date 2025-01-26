@@ -123,7 +123,8 @@ page.refreshPlaylists = async function () {
 
 /**
  * Returns the list of tracks present in Liked Songs and not in the playlist with id `playlistId`
- * @param {String} playlistId 
+ * @param {String} playlistId - id of the playlist
+ * @returns {object}
  */
 page.getTrackDiff = function (playlistId) {
 	const playlist = page.data.playlists.items.find(pl => pl.id === playlistId);
