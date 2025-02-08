@@ -9,7 +9,7 @@
   },
   "devDependencies": {
     "chokidar": "4.0.3",
-    "esbuild": "0.24.2",
+    "esbuild": "0.25.0",
     "esbuild-plugin-clean": "1.0.1",
     "esbuild-plugin-copy": "2.1.1",
     "esbuild-plugin-eslint": "0.3.12",
