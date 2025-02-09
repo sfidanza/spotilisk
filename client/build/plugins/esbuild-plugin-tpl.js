@@ -4,13 +4,13 @@ import fastGlob from 'fast-glob';
 
 /**
  * Bundles templates together
- * @param {object} configuration
- * @param {String[]} configuration.files - list of file patterns to build
- * @param {String} configuration.dest - destination file to write the bundle. Will be placed inside `outdir`.
+ * @param {Object} configuration
+ * @param {string[]} configuration.files - list of file patterns to build
+ * @param {string} configuration.dest - destination file to write the bundle. Will be placed inside `outdir`.
  */
 export default (configuration) => {
     return {
-        name: 'esbuild-tpl-plugin',
+        name: 'esbuild-plugin:tpl',
         setup(build) {
             const outdir = build.initialOptions.outdir; // should have trailing slash
             const dest = outdir + configuration.dest;

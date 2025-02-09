@@ -2,13 +2,13 @@ import fs from 'node:fs';
 
 /**
  * Copies index.html, replacing references to js/css paths with their hashed versions
- * @param {object} configuration
- * @param {String} configuration.srcdir - source folder (to be ignored in metafile mappings)
- * @param {String} configuration.index - filename of index.html. Taken from `srcdir` and will be placed inside `outdir`.
+ * @param {Object} configuration
+ * @param {string} configuration.srcdir - source folder (to be ignored in metafile mappings)
+ * @param {string} configuration.index - filename of index.html. Taken from `srcdir` and will be placed inside `outdir`.
  */
 export default (configuration) => {
     return {
-        name: 'esbuild-hash-plugin',
+        name: 'esbuild-plugin:hash',
         setup(build) {
             const outdir = build.initialOptions.outdir; // should have trailing slash
             const srcdir = configuration.srcdir; // should have trailing slash

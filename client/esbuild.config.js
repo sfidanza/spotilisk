@@ -1,7 +1,7 @@
 import * as esbuild from 'esbuild';
-import { clean } from 'esbuild-plugin-clean';
 import { copy } from 'esbuild-plugin-copy';
 import eslint from 'esbuild-plugin-eslint';
+import clean from './build/plugins/esbuild-plugin-clean.js';
 import hash from './build/plugins/esbuild-plugin-hash.js';
 import stylelint from './build/plugins/esbuild-plugin-stylelint.js';
 import tpl from './build/plugins/esbuild-plugin-tpl.js';
@@ -20,7 +20,7 @@ const config = {
         eslint(),
         stylelint(),
         clean({
-            patterns: [ 'target/*' ]
+            onStartPatterns: [ 'target/*' ]
         }),
         hash({
             srcdir: 'src/',

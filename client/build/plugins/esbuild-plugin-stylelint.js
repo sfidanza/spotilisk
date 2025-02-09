@@ -4,7 +4,7 @@ export default ({
     filter = /\.(css)$/,
     ...stylelintOptions
 } = {}) => ({
-    name: 'stylelint',
+    name: 'esbuild-plugin:stylelint',
     setup(build) {
         const targetFiles = [];
         build.onLoad({ filter }, ({ path }) => {
