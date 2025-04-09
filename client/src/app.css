@@ -153,3 +153,7 @@ h3 {
     font-size: 11pt;
     color: #AAA;
 }
+
+.track.preview {
+    background-color: #333;
+}

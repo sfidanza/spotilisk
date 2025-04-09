@@ -142,7 +142,7 @@ page.previewTrackDiff = function () {
 		const [ toBeAdded, originalTracks ] = page.getTrackDiff(playlistId);
 		console.log(toBeAdded.map(it => it.track.name));
 
-		page.templates.tracks.parse(toBeAdded);
+		page.templates.tracks.parse(toBeAdded, 'preview');
 		page.templates.tracks.parse(originalTracks);
 		page.templates.tracks.load('tracks');
 	}
