@@ -158,6 +158,35 @@ page.syncIntoPlaylist = function () {
 	}
 };
 
+page.findTracks = async function (names) {
+	const playlistId = page.data.selected;
+	if (playlistId) {
+		const tracks = await Promise.all(names.map(spotify.findTrack));
+		spotify.addTracksToPlaylist(playlistId, tracks.map(it => it.uri));
+		console.log('Tracks added (refresh playlists to see them):', tracks);
+	}
+};
+
+page.getTracksToImport = function() {
+	const playlistId = page.data.selected;
+	if (playlistId) {
+		const importer = document.getElementById('importer');
+		importer.style.display = 'block';
+		frw.dom.center(importer);
+	}
+};
+
+page.importTracks = function(doIt) {
+	const importer = document.getElementById('importer');
+	importer.style.display = 'none';
+	if (doIt) {
+		const listImporter = document.getElementsByName('listImporter')[0];
+		const list = listImporter.value.trim().split('\n');
+		listImporter.value = '';
+		page.findTracks(list);
+	}
+};
+
 /**********************************************************/
 
 window.addEventListener('load', function () {

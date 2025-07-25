@@ -157,3 +157,11 @@ h3 {
 .track.preview {
     background-color: #333;
 }
+
+/* **[importer]************* */
+
+#importer {
+    display: none;
+    position: absolute;
+    text-align: right;
+}

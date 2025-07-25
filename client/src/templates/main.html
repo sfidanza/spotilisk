@@ -11,6 +11,7 @@
 <div class="sync">
     <button onclick="page.syncIntoPlaylist()">Sync Liked Songs into the playlist selected below</button>
     <button onclick="page.previewTrackDiff()">Preview</button>
+    <button onclick="page.getTracksToImport()">+ Import tracks into playlist</button>
 </div>
 
 <h3>Playlists</h3>
@@ -23,4 +24,10 @@
         <button onclick="page.refreshPlaylists()">⟳ Refresh</button>
     </div>
     <div class="tracks" id="tracks"></div>
+</div>
+
+<div id="importer">
+    <textarea name="listImporter" rows="10" cols="50"></textarea><br/>
+    <button onclick="page.importTracks(false)">Cancel</button>
+    <button onclick="page.importTracks(true)">Import tracks</button>
 </div>

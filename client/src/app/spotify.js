@@ -97,3 +97,14 @@ export async function addTracksToPlaylist(playlistId, tracksUri) {
 		start += 100;
 	}
 }
+
+export async function findTrack(name) {
+	const endpoint = `/search?q=${encodeURIComponent(name)}&type=track&market=FR`;
+	const result = await fetchWebApi(SPOTIFY_API_BASE + endpoint, 'GET');
+	const track = result.tracks.items[0];
+	const trackName = `${track.artists[0].name} - ${track.name}`;
+	if (trackName.toLowerCase() !== name.toLowerCase()) {
+		console.warn(`Requested: ${name}, found: ${trackName}`);
+	}
+	return track;
+}
