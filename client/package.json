@@ -15,7 +15,7 @@
     "esbuild-plugin-eslint": "0.3.12",
     "eslint": "9.32.0",
     "fast-glob": "3.3.3",
-    "stylelint": "16.22.0",
+    "stylelint": "16.23.0",
     "stylelint-config-standard": "38.0.0"
   },
   "scripts": {
