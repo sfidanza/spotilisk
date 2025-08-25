@@ -47,3 +47,10 @@ main.onLoad = function (container) {
 main.toggleLikedSongs = function () {
 	document.querySelector('.liked')?.classList.toggle('preview');
 };
+
+main.toggleNamingInput = function () {
+	const namingInput = document.getElementById('naming-input');
+	if (namingInput) {
+		namingInput.style.display == 'none' ? namingInput.style.display = 'block' : namingInput.style.display = 'none';
+	}
+};

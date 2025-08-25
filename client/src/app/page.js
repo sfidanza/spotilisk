@@ -103,8 +103,7 @@ page.select = async function (event) {
 	page.notify(null);
 };
 
-page.createPlaylist = async function () {
-	const name = 'truc';
+page.createPlaylist = async function (name) {
 	const playlist = await spotify.createPlaylist(name);
 	page.data.playlists.items.unshift(playlist);
 	page.templates.main.parse(page.data);

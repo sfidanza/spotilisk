@@ -20,8 +20,9 @@
         <!-- BEGIN: playlist -->
         <div class="playlist" onclick="page.select(event)" data-id="{playlist.id}">{playlist.name} ({playlist.tracks.total})</div>
         <!-- END: playlist -->
-        <button onclick="page.createPlaylist()">+ Create Playlist</button>
+        <button data-onclick="toggleNamingInput">+ Create Playlist</button>
         <button onclick="page.refreshPlaylists()">⟳ Refresh</button>
+        <input type="text" id="naming-input" onkeydown="if(event.keyCode == 13) { page.createPlaylist(this.value) }" style="display: none;"/>
     </div>
     <div class="tracks" id="tracks"></div>
 </div>
