@@ -1,6 +1,12 @@
-<!-- BEGIN: login_form -->
-<a href="" onclick="page.login(); return false;">Login with Spotify</a>
-<!-- END: login_form -->
-<!-- BEGIN: login_info -->
-<p>{user} (<a href="#logout" onclick="page.logout(); return false;">Logout</a>)</p>
-<!-- END: login_info -->
+<img src="{profile}" id="profile" data-onclick="toggleMenu" role="button" />
+
+<div id="profile-menu" style="display: none;">
+    <span>{user}</span>
+    <!-- BEGIN: login_form -->
+    <button onclick="page.login(); return false;">Login</button>
+    <!-- END: login_form -->
+    <!-- BEGIN: login_info -->
+    <button onclick="page.logout(); return false;">Logout</button>
+    <!-- END: login_info -->
+</div>
+<!-- END: profile_menu -->

@@ -5,6 +5,10 @@ body {
     margin: 0;
 }
 
+button {
+    cursor: pointer;
+}
+
 h1 {
     font-weight: bold;
     margin: 0;
@@ -16,10 +20,50 @@ h1 {
     border-bottom: inset;
     border-image: linear-gradient(to right, #077d07, #83ec83, #077d07) 1;
     box-shadow: 0 0 200px 20px #077d07;
+    display: flex;
+    justify-content: space-between;
 }
 
 #user-area {
-    float: right;
+    padding: 0.5em 1em 0 0;
+}
+
+#profile {
+    width: 4.5em;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+#profile-menu {
+    background-color: #282828;
+    border-radius: 4px;
+    box-shadow: 0 16px 24px #0000004d, 0 6px 8px #0003;
+    width: 8em;
+    padding: 4px;
+    position: absolute;
+    right: 1em;
+    z-index: 1;
+}
+
+#profile-menu span {
+    padding: 0.3em 0em 0.3em 0.5em;
+    border-bottom: solid 0.1em hsla(0, 0%, 100%, .1);
+    display: block;
+}
+
+#profile-menu button {
+    height: 40px;
+    background-color: transparent;
+    border: none;
+    width: 100%;
+    text-align: start;
+    color: #fff;
+}
+
+#profile-menu button:hover {
+    background-color: #ffffff1a;
 }
 
 /* **[PWL]****************** */
