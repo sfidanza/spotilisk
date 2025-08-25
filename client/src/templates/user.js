@@ -13,11 +13,11 @@ user.onParse = function (data) {
 		this.set('profile', data.user.images[0].url);
 		this.parseBlock('login_info');
 	} else {
-		this.set('user', "User")
-		this.set('profile', "../img/user.png")
+		this.set('user', 'User');
+		this.set('profile', '../img/user.png');
 		this.parseBlock('login_form');
 	}
-	this.parseBlock('profile_menu')
+	this.parseBlock('profile_menu');
 };
 
 user.onLoad = function (container) {
