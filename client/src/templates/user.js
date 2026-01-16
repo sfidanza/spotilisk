@@ -10,7 +10,7 @@ user.onCreate = function (pageRef, frwRef, i18nRepository) {
 user.onParse = function (data) {
 	if (data.user) {
 		this.set('user', data.user.display_name);
-		this.set('profile', data.user.images[0].url);
+		this.set('profile', data.user.images[0]?.url || '../img/user.png');
 		this.parseBlock('login_info');
 	} else {
 		this.set('user', 'User');
