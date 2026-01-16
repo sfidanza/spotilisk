@@ -17,7 +17,6 @@ user.onParse = function (data) {
 		this.set('profile', '../img/user.png');
 		this.parseBlock('login_form');
 	}
-	this.parseBlock('profile_menu');
 };
 
 user.onLoad = function (container) {
