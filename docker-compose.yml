@@ -4,11 +4,3 @@ services:
     environment:
       - AUTH_CLIENT_ID
       - AUTH_REDIRECT_URL
-
-  # app:
-  #   image: ghcr.io/sfidanza/spotilisk-backend
-  #   environment:
-  #     - NODE_PORT=9090
-  #     - AUTH_CLIENT_ID
-  #     - AUTH_CLIENT_SECRET
-  #     - AUTH_REDIRECT_URL
