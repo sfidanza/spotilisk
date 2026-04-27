@@ -16,7 +16,7 @@
     "eslint": "10.2.1",
     "fast-glob": "3.3.3",
     "globals": "17.5.0",
-    "stylelint": "17.9.0",
+    "stylelint": "17.9.1",
     "stylelint-config-standard": "40.0.0"
   },
   "scripts": {
