@@ -1,10 +1,6 @@
-import { Template } from '../frw/frw.Template.js';
+import { frw } from '@sfidanza/tahr';
 
-export const tracks = new Template();
-
-tracks.onCreate = function (pageRef, frwRef, i18nRepository) {
-	this.i18n = i18nRepository;
-};
+export const tracks = new frw.Template();
 
 tracks.onParse = function (list, type) {
 	for (const item of list) {

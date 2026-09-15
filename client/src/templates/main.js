@@ -1,8 +1,8 @@
-import { Template } from '../frw/frw.Template.js';
+import { frw } from '@sfidanza/tahr';
 
-export const main = new Template();
+export const main = new frw.Template();
 
-main.onCreate = function (pageRef, frwRef, i18nRepository) {
+main.onCreate = function (i18nRepository) {
 	this.i18n = i18nRepository;
 	this.autoBindEvents = ['onclick'];
 };
@@ -24,23 +24,6 @@ main.onParse = function (data) {
 		this.set('playlist', playlist);
 		this.set('playlist.tracks.total', playlist.tracks.total);
 		this.parseBlock('playlist');
-	}
-};
-
-main.onLoad = function (container) {
-	/**
-	 * Experimental event binding for templates
-	 *  `data-onclick="myMethod"` instead of `onclick="page.templates.whoAmI.myMethod()"`
-	 * Benefits:
-	 *  - compatible with CSP `script-src` directive to avoid `inline-script`
-	 *  - simplifies calling template method from html
-	 * Candidate to be included directly in `frw.Template.load`
-	 *  `main.autoBindEvents = [ 'onclick' ];`
-	 **/
-	if (this.autoBindEvents?.includes('onclick')) {
-		container.querySelectorAll('[data-onclick]').forEach(el => {
-			el.onclick = this[el.dataset.onclick].bind(this);
-		});
 	}
 };
 
