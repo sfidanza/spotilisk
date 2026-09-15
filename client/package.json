@@ -8,11 +8,12 @@
     "url": "https://github.com/sfidanza/spotilisk/issues"
   },
   "devDependencies": {
+    "@eslint/js": "10.0.1",
+    "@stylistic/eslint-plugin": "5.10.0",
     "chokidar": "5.0.0",
     "del": "8.0.1",
     "esbuild": "0.28.2",
     "esbuild-plugin-copy": "2.1.1",
-    "@eslint/js": "10.0.1",
     "eslint": "10.10.0",
     "fast-glob": "3.3.3",
     "globals": "17.12.0",
@@ -22,7 +23,7 @@
   "scripts": {
     "build": "node esbuild.config.js",
     "debug": "node esbuild.config.js --watch",
-    "lint": "eslint ./src/ & stylelint \"./src/**/*.css\"",
+    "lint": "eslint ./src/; stylelint \"./src/**/*.css\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "type": "module",
