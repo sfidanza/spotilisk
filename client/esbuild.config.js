@@ -1,4 +1,3 @@
-import * as esbuild from 'esbuild';
 import { copy } from 'esbuild-plugin-copy';
 import { clean, hash, eslint, stylelint, tpl, worldWatcher } from '@sfidanza/netherforge';
 
@@ -34,4 +33,4 @@ const config = {
     ]
 };
 
-worldWatcher.oversee(esbuild, config);
+worldWatcher.oversee(config);
